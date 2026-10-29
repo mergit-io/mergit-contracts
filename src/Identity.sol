@@ -46,6 +46,16 @@ contract Identity is ERC721, IIdentity {
         return _uri[agentId];
     }
 
+    /// @dev A transfer (not a mint) clears the runtime key: the seller's key must not sign for the buyer's
+    ///      tasks, and with no key every commit fails until the new operator calls setRuntimeKey.
+    function _update(address to, uint256 agentId, address auth) internal override returns (address from) {
+        from = super._update(to, agentId, auth);
+        if (from != address(0) && _runtimeKey[agentId] != address(0)) {
+            delete _runtimeKey[agentId];
+            emit RuntimeKeyChanged(agentId, address(0));
+        }
+    }
+
     function _known(uint256 agentId) private view {
         if (_ownerOf(agentId) == address(0)) revert UnknownAgent(agentId);
     }

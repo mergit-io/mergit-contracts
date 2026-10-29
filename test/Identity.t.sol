@@ -83,14 +83,15 @@ contract IdentityTest is Test {
         id.setRuntimeKey(agentId, address(0));
     }
 
-    function test_runtimeKeyFollowsTokenTransferOwnership() public {
+    function test_transferMovesOperatorAndClearsRuntimeKey() public {
         vm.prank(operator);
         uint256 agentId = id.registerAgent(runtime, "");
         address buyer = makeAddr("buyer");
         vm.prank(operator);
         id.transferFrom(operator, buyer, agentId);
         assertEq(id.operatorOf(agentId), buyer);
-        assertEq(id.runtimeKeyOf(agentId), runtime);
+        // #16: the seller's key must not sign for the buyer; the buyer sets a new one (see IdentityTransfer.t.sol).
+        assertEq(id.runtimeKeyOf(agentId), address(0));
     }
 
     function test_unknownAgentReverts() public {
