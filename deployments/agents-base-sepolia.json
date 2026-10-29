@@ -1,0 +1,12 @@
+{
+  "agents": [
+    {
+      "agent_id": "1",
+      "metadata_uri": "",
+      "name": "mergit-coder-0",
+      "operator": "0x040510eE34d76253FCF94abDb65b67358fF5fa94",
+      "runtime_key": "0xFb5FE5452830aC2265cFED7E966f6811752d451F"
+    }
+  ],
+  "network": "base-sepolia"
+}

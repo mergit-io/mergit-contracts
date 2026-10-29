@@ -5,6 +5,10 @@
 #   script/testnet.sh deploy   Deploy.s.sol, then SeedAgents.s.sol; writes deployments/base-sepolia.json
 set -euo pipefail
 cd "$(dirname "$0")/.."
+if [ ! -e .env ] || [ ! -e .env.services ]; then
+  echo "No .env / .env.services yet: run script/new-testnet-keys.sh first, then fund DEPLOYER (ETH) and TREASURY (USDC)." >&2
+  exit 1
+fi
 set -a
 . ./.env
 . ./.env.services
@@ -30,6 +34,17 @@ status() {
 }
 
 fund() {
+  local need_wei have_wei
+  need_wei=$(cast to-wei "$(echo "$GAS_ETH * 5.5" | bc -l)")
+  have_wei=$(cast balance "$DEPLOYER_ADDR" --rpc-url "$RPC")
+  if [ "$(echo "$have_wei < $need_wei" | bc)" = 1 ]; then
+    echo "DEPLOYER $DEPLOYER_ADDR needs at least $(printf %.3f "$(echo "$GAS_ETH * 5.5" | bc -l)") ETH from a faucet first" >&2
+    exit 1
+  fi
+  if [ "$(usdc_of "$TREASURY_ADDR")" -lt "$STAKE_UNITS_0" ]; then
+    echo "TREASURY $TREASURY_ADDR needs at least $(printf %.2f "$(echo "$STAKE_UNITS_0 / 1000000" | bc -l)") USDC from faucet.circle.com first" >&2
+    exit 1
+  fi
   for a in "$GATEWAY_ADDR" "$VALIDATOR_ADDR" "$TREASURY_ADDR" "$ADJUDICATOR_ADDR" "$OPERATOR_ADDR"; do
     echo "gas: $GAS_ETH ETH -> $a"
     cast send "$a" --value "${GAS_ETH}ether" --private-key "$DEPLOYER_KEY" --rpc-url "$RPC" >/dev/null

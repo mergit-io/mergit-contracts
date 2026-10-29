@@ -1,0 +1,19 @@
+{
+  "chain_id": 84532,
+  "challenge_manager": "0x4C27bA612f3574266196896767134cf23C78346b",
+  "deploy_block": 51760675,
+  "escrow": "0x3e06e2D35C9e2C578Dfa7303802376A9317a6FF6",
+  "identity": "0x72eAc041Ee897fF0385022639452fE08Dcd4B7D6",
+  "receipt_registry": "0xcEa0D8C96a270C529d774B00a2Be643679E3c2c2",
+  "reputation_anchor": "0xf9DBfF75887361A67269765DA6F8732b233Fda76",
+  "roles": {
+    "adjudicator": "0xf7CE7f8c40553548413cCFaBd9d8902d9D73E1EB",
+    "gateway": "0x88f88483FEaf0631E4B059B02F42e35171dc0D93",
+    "reserve": "0x0DE11aCf81C7B4aE56C4cD721d329b1E2c57d715",
+    "treasury": "0x0DE11aCf81C7B4aE56C4cD721d329b1E2c57d715",
+    "validator": "0xb41263A86d0EB428Dd1895f7110060Da7EC89F55"
+  },
+  "stake_vault": "0xeD4194F7cCD4B1E20F50e4665C0eBb067d91fD94",
+  "usdc": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  "window_seconds": 600
+}
