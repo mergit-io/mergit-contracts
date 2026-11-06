@@ -205,6 +205,22 @@ contract EscrowTest is Test {
         assertEq(available(), 0);
     }
 
+    function test_lockTaskRevertsWhenDeadlineEqualsTimestamp() public {
+        fund(2e6);
+        vm.prank(gateway);
+        vm.expectRevert(
+            abi.encodeWithSelector(IEscrow.DeadlineInPast.selector, bytes32("t1"), uint64(block.timestamp))
+        );
+        escrow.lockTask("t1", PLAN, agentId, 1e6, uint64(block.timestamp), PHI);
+    }
+
+    function test_lockTaskSucceedsWhenDeadlineIsTimestampPlusOne() public {
+        fund(2e6);
+        vm.prank(gateway);
+        escrow.lockTask("t1", PLAN, agentId, 1e6, uint64(block.timestamp + 1), PHI);
+        assertEq(uint8(state("t1")), uint8(IEscrow.TaskState.Locked));
+    }
+
     function test_lockTaskTwiceIsRejected() public {
         fund(2e6);
         lock("t1", 1e6);
