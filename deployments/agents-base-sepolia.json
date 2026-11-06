@@ -6,6 +6,20 @@
       "name": "mergit-coder-0",
       "operator": "0x040510eE34d76253FCF94abDb65b67358fF5fa94",
       "runtime_key": "0xFb5FE5452830aC2265cFED7E966f6811752d451F"
+    },
+    {
+      "agent_id": "2",
+      "metadata_uri": "https://mergit.site/registrations/coder-1.json",
+      "name": "mergit-coder-1",
+      "operator": "0x1725a458a3Fc8BB3d7460d262c7F94766FEF585D",
+      "runtime_key": "0xd89b1DBF4cbf532537372eCecb66Ec85A102f77f"
+    },
+    {
+      "agent_id": "3",
+      "metadata_uri": "https://mergit.site/registrations/coder-2.json",
+      "name": "mergit-coder-2",
+      "operator": "0x1725a458a3Fc8BB3d7460d262c7F94766FEF585D",
+      "runtime_key": "0x35F21Fc8316b18291C82D17EF9432Eb16BB937B4"
     }
   ],
   "network": "base-sepolia"
