@@ -149,6 +149,7 @@ contract Escrow is AccessControl, ReentrancyGuard, IEscrow {
         onlyRole(GATEWAY_ROLE)
     {
         if (amount == 0) revert ZeroAmount();
+        if (deadline <= uint64(block.timestamp)) revert DeadlineInPast(taskId, deadline);
         if (_tasks[taskId].state != TaskState.None) revert TaskExists(taskId);
         Plan storage p = _plans[planId];
         if (p.closed) revert PlanClosedAlready(planId);

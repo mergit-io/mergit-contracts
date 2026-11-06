@@ -56,6 +56,7 @@ interface IEscrow {
     error DeadlineNotPassed(bytes32 taskId, uint64 deadline);
     error OnboardingNeedsVerdict(bytes32 taskId);
     error NonceNotBoundToPlan(bytes32 nonce, bytes32 expected);
+    error DeadlineInPast(bytes32 taskId, uint64 deadline);
     error StakeVaultAlreadySet();
     error PlanUnknown(bytes32 planId);
     error AuditPending(bytes32 taskId);
