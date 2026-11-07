@@ -18,6 +18,13 @@ interface IReputationAnchor {
     error DuplicateRecord(bytes32 taskId, uint8 source);
 
     /// @notice RECORDER_ROLE
+    /// @param taskId The task whose outcome to record
+    /// @param agentId The agent that executed the task
+    /// @param category An application-defined category tag
+    /// @param success Whether the task completed successfully
+    /// @param costMicros The execution cost in micro-units
+    /// @param tier 0 for staked, 1 for onboarding
+    /// @param source 0 for audit verdict, 1 for challenge ruling
     function record(
         bytes32 taskId,
         uint256 agentId,

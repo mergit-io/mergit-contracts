@@ -13,10 +13,17 @@ interface IChallengeManager {
     error AlreadyResolved(uint256 challengeId);
 
     /// @notice Pulls the bond: max(1e6, amount x 1000 / 10000) USDC units
+    /// @param taskId The task to challenge
+    /// @return challengeId The id assigned to the new challenge
     function open(bytes32 taskId) external returns (uint256 challengeId);
 
     /// @notice ADJUDICATOR_ROLE
+    /// @param challengeId The challenge to resolve
+    /// @param upheld True if the challenge is upheld; false to dismiss
     function resolve(uint256 challengeId, bool upheld) external;
 
+    /// @notice Returns the bond required to challenge a task
+    /// @param taskId The task to compute the bond for
+    /// @return The bond amount in USDC units
     function bondFor(bytes32 taskId) external view returns (uint256);
 }
